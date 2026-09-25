@@ -84,9 +84,11 @@ function selectedDecision(){
  const hit=document.querySelector('input[type=radio][name="d"]:checked');
  return hit ? hit.value : '';
 }
-function newEmployeeNo(){
- const d=new Date(), yy=String(d.getFullYear()).slice(-2), mm=String(d.getMonth()+1);
- return yy+mm+String(Date.now()).slice(-4);
+async function newEmployeeNo(){
+  const { data, error } = await sb.rpc('get_next_employee_no');
+  if(error) throw error;
+  if(!data) throw new Error('تعذر إنشاء رقم الموظف');
+  return String(data);
 }
 async function saveInterviewAndCreateOffer(){
  const msg=document.getElementById('workflowMsg');
