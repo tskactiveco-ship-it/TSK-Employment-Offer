@@ -161,7 +161,7 @@ async function saveInterviewAndCreateOffer(){
  let {data:o,error:e3}=await tskDb.from('employment_offers').insert(offer).select('offer_reference,secure_token').single();
  if(e3){msg.textContent='Offer create error: '+e3.message;return;}
  await tskDb.from('employees').update({employment_status:'Offer Pending'}).eq('employee_no',employee_no);
- const offerUrl='https://tskactiveco-ship-it.github.io/TSK-Employment-Offer/?token='+o.secure_token;
+ const offerUrl='https://tskactiveco-ship-it.github.io/TSK-Employment-Offer/offer.html?token='+o.secure_token;
  msg.innerHTML='✓ Interview saved & offer created.<br><b>Employee No:</b> '+employee_no+
    '<br><b>Offer:</b> '+o.offer_reference+
    '<br><b>Secure offer link:</b> <a target="_blank" href="'+offerUrl+'">'+offerUrl+'</a>';
